@@ -28,14 +28,48 @@ L'output del prezzo finale va messo fuori in forma umana (con massimo due decima
 
 const kmNumber = Number( prompt(`Quanti km devi percorrere?`) );
 
+// bonus: controlliamo che il valore inserito sia corretto
+// non un numero, minore di 1
+
+
+// possiamo segnarci da qualche parte che c'è stato un errore
+// se alla fine sappiamo che c'è stato un errore, non scriviamo nulla in pagina
+// queste si chiamano variabili flag
+let errorHappened = false;
+
+
+
+// se l'if è vero, il valore è errato
+if(isNaN(kmNumber) || kmNumber < 1 ) {
+    // avviso l'utente dell'errore
+    alert("Hai inserito un valore errato, ti preghiamo di ricaricare la pagina e inserire il valore indicato correttamente");
+
+    // segnamo che l'errore è capitato
+    errorHappened = true;
+}
 
 
 // const kmNumber = 100;
 
+let age;
 
-// - chiedo all'utente l'età e la memorizzo
-const age = Number( prompt("Quanti anni hai?") );
-// const age = 27;
+// se non è successo nessun errore precedendemente, chiedo anche l'età
+if(errorHappened == false) {
+    // - chiedo all'utente l'età e la memorizzo
+    age = Number( prompt("Quanti anni hai?") );
+
+    // validazione input
+    if(isNaN(age) || age < 0 || age > 122  ) {
+        alert("Hai inserito un valore errato, ti preghiamo di ricaricare la pagina e inserire il valore indicato correttamente");
+        
+        // segnamo che l'errore è capitato
+        errorHappened = true;
+    }
+}
+
+
+
+
 
 
 // - genero un prezzo base calcolato moltiplicando l'età per 0.21
@@ -67,5 +101,8 @@ console.log( "€ " + finalPrice.toFixed(2) );
 
 
 // - stampare in pagina
-document.getElementById("result").innerHTML = "Il prezzo del tuo biglietto è di € " + finalPrice.toFixed(2) + "<br>" + discountMessage;
+// SOLO se non ci sono stati errori
+if( ! errorHappened) {
+    document.getElementById("result").innerHTML = "Il prezzo del tuo biglietto è di € " + finalPrice.toFixed(2) + "<br>" + discountMessage;
+}
 
